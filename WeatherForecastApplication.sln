@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastApplication", "WeatherForecastApplication\WeatherForecastApplication.csproj", "{CEC9983E-E94C-45D8-A9BB-7F54F60B7361}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F12C43CE-B237-471F-B5AB-2BB32E4B05AC} = {F12C43CE-B237-471F-B5AB-2BB32E4B05AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherWCFService", "WeatherWCFService\WeatherWCFService.csproj", "{F12C43CE-B237-471F-B5AB-2BB32E4B05AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApIProject", "WebApIProject\WebApIProject.csproj", "{FDDABFDD-650A-4399-B390-50BFEF423BA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEC9983E-E94C-45D8-A9BB-7F54F60B7361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC9983E-E94C-45D8-A9BB-7F54F60B7361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC9983E-E94C-45D8-A9BB-7F54F60B7361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC9983E-E94C-45D8-A9BB-7F54F60B7361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12C43CE-B237-471F-B5AB-2BB32E4B05AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12C43CE-B237-471F-B5AB-2BB32E4B05AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12C43CE-B237-471F-B5AB-2BB32E4B05AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12C43CE-B237-471F-B5AB-2BB32E4B05AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDDABFDD-650A-4399-B390-50BFEF423BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDDABFDD-650A-4399-B390-50BFEF423BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDDABFDD-650A-4399-B390-50BFEF423BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDABFDD-650A-4399-B390-50BFEF423BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

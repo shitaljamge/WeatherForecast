@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+    <script type="text/javascript">
+        
+        $(function () {
+            var isMetric = false;
+            var locationUrl = "";
+            var currentConditionsUrl = "";            
+            var language = "en";            
+            var apiKey = "XiKvqHdri5kdbZ2Z73ZRtK9fuO1o4jyD";
+            var awxClearMessages = function () {
+                $("#awxLocationInfo").html("...");
+                $("#awxLocationUrl").html("...");
+                $("#awxWeatherInfo").html("...");
+                $("#awxWeatherUrl").html("...");
+            }
+               var awxCityLookUp = function (freeText) {
+                awxClearMessages();
+                locationUrl = "http://dataservice.accuweather.com/locations/v1/cities/search?q=" + freeText + "&apikey=" + apiKey;                
+                $.ajax({
+                    type: "GET",
+                    url: locationUrl,
+                    dataType: "jsonp",
+                    cache: true,                    
+                    jsonpCallback: "awxCallback",   
+                    success: function (data) { awxCityLookUpFound(data); }
+                });
+            };
+            
+            var awxCityLookUpFound = function (data) {
+                var msg, locationKey = null;
+                $("#awxLocationUrl").html("<a href=" + encodeURI(locationUrl) + ">" + locationUrl + "</a>");
+                if (data.length == 1) {
+                    locationKey = data[0].Key;
+                    msg = "One location found: <b>" + data[0].LocalizedName + "</b>. Key: " + locationKey;
+                }
+                else if (data.length == 0) {
+                    msg = "No locations found."
+                }
+                else {
+                    locationKey = data[0].Key;
+                    msg = "Multiple locations found (" + data.length + "). Selecting the first one: " +
+                        "<b>" + data[0].LocalizedName + ", " + data[0].Country.ID + "</b>. Key: " + locationKey;
+                }
+                $("#awxLocationInfo").html(msg);
+                if (locationKey != null) {
+                    awxGetCurrentConditions(locationKey);
+                }
+
+            };
+            //http://dataservice.accuweather.com/forecasts/v1/daily/1day/49785?apikey=XiKvqHdri5kdbZ2Z73ZRtK9fuO1o4jyD
+            // Gets current conditions for the location.
+            
+            var awxGetCurrentConditions = function (locationKey) {               
+                currentConditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/"+ locationKey + ".json?language=" + language + "&apikey=" + "XiKvqHdri5kdbZ2Z73ZRtK9fuO1o4jyD";
+                $.ajax({
+                    type: "GET",
+                    url: currentConditionsUrl,
+                    dataType: "jsonp",
+                    cache: true,                    
+                    jsonpCallback: "awxCallback",   
+                    success: function (data) {
+                        var html;
+                        if (data && data.length > 0) {
+                            var conditions = data[0];
+                            var temp = isMetric ? conditions.Temperature.Metric : conditions.Temperature.Imperial;
+                            html = conditions.WeatherText + ", " + temp.Value + " " + temp.Unit;
+                        }
+                        else {
+                            html = "N/A";
+                        }
+                        $("#awxWeatherInfo").html(html);
+                        $("#awxWeatherUrl").html("<a href=" + currentConditionsUrl + ">" + currentConditionsUrl + "</a>");
+                    }
+                });
+            };
+            $("#awxSearchTextBox").keypress(function (e) {
+                if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                    var text = $("#awxSearchTextBox").val();
+                    awxCityLookUp(text);
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            $("#awxSearchButton").click(function () {
+                var text = $("#awxSearchTextBox").val();
+                awxCityLookUp(text);
+            });
+            $("#refreshpage").click(function () {
+                var text = $("#refresh").val();
+                setInterval("location.reload(true)", (text*60000));
+            });
+        });
+
+        
+    </script>
+    
+            
+   
+</head>
+    
+<body>
+    <h2>Location Search and Current Conditions</h2>  
+
+    <div>Enter City/Country name:
+        <input id="awxSearchTextBox" />
+        <input id="awxSearchButton" type="submit" value="Search" />
+    </div>
+
+    <h3>Location Information</h3>
+    <ul>
+        <li>URL: <span id="awxLocationUrl"/>
+        <li><span id="awxLocationInfo"> </span>
+    </ul>
+
+    <h3>Current Conditions</h3>
+    <ul>
+        <li>URL: <span id="awxWeatherUrl"/>
+        <li><span id="awxWeatherInfo"> </span>
+    </ul>  
+
+    <div>Refresh Interval:
+        <select name="Refresh" id="refresh">
+          <option selected="selected">15</option>
+          <option>30</option>
+          <option>45</option>
+          <option>60</option>
+        </select>
+        
+        <input id="refreshpage" type="submit" value="Refresh" />
+    </div>
+</body>
+
+</html>

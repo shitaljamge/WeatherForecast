@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Login</title></head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+    $(document).ready(function () {
+        var xml;
+        $('#b1').click(function () {
+            $.get('Authentication.xml', null, function (data, textStatus) {
+                xml = data;
+                $(xml).find('details').each(function () {
+                    var item = $(this);
+
+                    if ((item.find('username').text() == "user1" || item.find('username').text() == "user2" ) && (item.find('password').text() == "password"))
+                    {
+                        window.open('WeatherView.html');
+                    }
+                });
+            });
+        });
+    });
+    </script>
+</html>

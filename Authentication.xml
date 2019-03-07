@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Users>
+
+  <details>
+    <username>user1</username>
+    <password>password</password>
+    <email>sjamge@gmail.com</email>
+  </details>
+
+  <details>
+    <username>user2</username>
+    <password>password</password>
+    <email>sjamge@gmail.com</email>
+  </details>
+
+</Users>
